@@ -1,26 +1,296 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 47 96% 53%;
+    --primary-foreground: 26 83% 14%;
+    --secondary: 210 40% 98%;
+    --secondary-foreground: 222.2 84% 4.9%;
+    --muted: 210 40% 98%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 98%;
+    --accent-foreground: 222.2 84% 4.9%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 47 96% 53%;
+    --radius: 0.75rem;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  /* Make images not draggable for better mobile UX */
+  img {
+    -webkit-user-drag: none;
+    user-drag: none;
+    -webkit-touch-callout: none;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  /* Enhanced button variants */
+  .btn-primary {
+    @apply bg-[#F0B90B] hover:bg-[#E1AA0A] text-[#1E2329] font-semibold transition-all duration-200 shadow-sm;
+  }
+  
+  .btn-secondary {
+    @apply bg-[#F8F9FA] hover:bg-[#EAECEF] text-[#1E2329] font-medium transition-all duration-200;
+  }
+  
+  .btn-outline {
+    @apply border-2 border-[#EAECEF] hover:border-[#F0B90B] hover:bg-[#F0B90B]/5 text-[#1E2329] font-medium transition-all duration-200;
+  }
+
+  /* Card styles */
+  .card {
+    @apply bg-white rounded-2xl shadow-sm border border-[#EAECEF] transition-all duration-200;
+  }
+  
+  .card:hover {
+    @apply shadow-md border-[#F0B90B]/20;
+  }
+
+  /* Input enhancements */
+  .input-field {
+    @apply w-full px-4 py-3 border-2 border-[#EAECEF] rounded-lg focus:border-[#F0B90B] focus:outline-none transition-all duration-200 text-[#1E2329] placeholder:text-[#707A8A];
+  }
+  
+  .input-field:focus {
+    @apply ring-2 ring-[#F0B90B]/20 border-[#F0B90B];
+  }
+
+  /* Status indicators */
+  .status-success {
+    @apply bg-[#0ECB81]/10 text-[#0ECB81] px-3 py-1 rounded-full text-sm font-medium;
+  }
+  
+  .status-error {
+    @apply bg-[#F6465D]/10 text-[#F6465D] px-3 py-1 rounded-full text-sm font-medium;
+  }
+  
+  .status-warning {
+    @apply bg-[#F0B90B]/10 text-[#F0B90B] px-3 py-1 rounded-full text-sm font-medium;
+  }
+
+  /* Loading states */
+  .loading-spinner {
+    @apply h-5 w-5 border-2 border-current border-t-transparent rounded-full animate-spin;
+  }
+
+  /* Smooth transitions */
+  .transition-smooth {
+    @apply transition-all duration-300 ease-in-out;
+  }
+
+  /* Glass effect */
+  .glass {
+    @apply backdrop-blur-md bg-white/80 border border-white/20;
+  }
+
+  /* Gradient backgrounds */
+  .gradient-primary {
+    background: linear-gradient(135deg, #F0B90B 0%, #E1AA0A 100%);
+  }
+  
+  .gradient-secondary {
+    background: linear-gradient(135deg, #F8F9FA 0%, #EAECEF 100%);
+  }
+
+  /* Focus styles */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-[#F0B90B]/20 focus:border-[#F0B90B];
+  }
+
+  /* Text styles */
+  .text-heading {
+    @apply text-[#1E2329] font-semibold tracking-tight;
+  }
+  
+  .text-body {
+    @apply text-[#707A8A] leading-relaxed;
+  }
+  
+  .text-accent {
+    @apply text-[#F0B90B] font-medium;
+  }
+
+  /* Animation utilities */
+  .fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+  .slide-up {
+    animation: slideUp 0.3s ease-out;
+  }
+  
+  .bounce-in {
+    animation: bounceIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+
+  /* NexusPay specific component styles */
+  .nexus-card {
+    @apply rounded-lg border border-border bg-background p-4 shadow-card;
+  }
+  
+  /* Text input styles from design */
+  .input-nexus {
+    @apply bg-background border border-border rounded-md p-3 w-full focus:outline-none focus:ring-1 focus:ring-accent focus:border-accent;
+  }
+
+  /* Card component styles */
+  .balance-card {
+    @apply rounded-lg p-4 flex flex-col gap-2;
+  }
+  
+  /* Transaction item styles */
+  .transaction-item {
+    @apply flex items-center justify-between p-3 border-b border-border;
+  }
+  
+  /* Tab navigation styles */
+  .tab-nav {
+    @apply flex items-center justify-around border-b border-border;
+  }
+  
+  .tab-item {
+    @apply px-4 py-3 text-text-secondary font-medium;
+  }
+  
+  .tab-item-active {
+    @apply text-primary border-b-2 border-accent;
+  }
+  
+  /* Input with icon layout */
+  .input-with-icon {
+    @apply relative;
+  }
+  
+  .input-with-icon input {
+    @apply pl-10;
+  }
+  
+  .input-with-icon .icon {
+    @apply absolute left-3 top-1/2 transform -translate-y-1/2 text-text-muted;
+  }
+  
+  /* Pill badge/status */
+  .status-pill {
+    @apply px-2 py-1 rounded-full text-xs font-medium;
+  }
+  
+  .status-pill-success {
+    @apply bg-opacity-10 bg-success text-success;
+  }
+  
+  .status-pill-warning {
+    @apply bg-opacity-10 bg-warning text-warning;
+  }
+  
+  .status-pill-error {
+    @apply bg-opacity-10 bg-error text-error;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #F0B90B;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #E1AA0A;
+}
+
+/* Mobile optimizations */
+@media (max-width: 640px) {
+  .card {
+    @apply rounded-xl;
+  }
+  
+  .input-field {
+    @apply py-4;
+  }
+}
+
+/* Dark mode */
+.dark body {
+  @apply bg-primary text-text-inverse;
+}
+
+.dark .nexus-card {
+  @apply bg-primary-light border-border-dark;
+}
+
+.dark .input-nexus {
+  @apply bg-primary-light border-border-dark;
+}
+
+.dark ::-webkit-scrollbar-track {
+  @apply bg-primary-light;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  @apply bg-border-dark;
 }
